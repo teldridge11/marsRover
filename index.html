@@ -1,33 +1,63 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <script src="script.js"></script>
+        <script type="text/javascript" src="marsRover.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyD9eXIa1mzcwpaWIkdauO92HrQkCABTpkU"></script>
+        <script type="text/javascript" src="map.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body>
-        <h1>Mars Curiosity Rover Photos</h1>
-        <form>
-            <label>Enter a Mars solar day you would like to see images from:</label>
-            <br>
-            <input type="text" id="solField" name="solField">
-            <br>
-            <input type="submit" id="solSubmit" value="Get Image">
-        </form>
-        <div>
-            <label>Mars Solar Day:</label>
-            <div id="sol"></div>
-            <br>
-            <label>Earth Date:</label>
-            <div id="earthDate"></div>
-            <br>
-            <label>Low Temperature:</label>
-            <div id="lowTemp"></div>
-            <br>
-            <label>High Temperature:</label>
-            <div id="highTemp"></div>
-            <br>
-            <label>Images:</label>
-            <div id="images">
-                <br>
+    <body onload="initialize();">
+        <div id="topSection">
+            <div id="input">
+                <div id="inputText">
+                    <h1>Mars Curiosity Rover Data</h1>
+                    <br>
+                    <form>
+                        <label id="solFieldLabel">Enter a Mars solar day:</label>
+                        <br>
+                        <input type="text" id="solField" name="solField">
+                        <br>
+                        <br>
+                        <input type="submit" id="solSubmit" value="Get Data">
+                    </form>
+                    <div id="data">
+                        <table>
+                            <tr>
+                                <td><label>Mars Sol</label></td>
+                                <td><div id="sol"></div></td>
+                            </tr>
+                            <tr>
+                                <td><label>Earth Date</label></td>
+                                <td><div id="earthDate"></div></td>
+                            </tr>
+                            <tr>
+                                <td><label>Low Temperature</label></td>
+                                <td><div id="lowTemp"></div></td>
+                            </tr>
+                            <tr>
+                                <td><label>High Temperature</label></td>
+                                <td><div id="highTemp"></div></td>
+                            </tr>
+                            <tr>
+                                <td><label>Humidity</label></td>
+                                <td><div id="humidity"></div></td>
+                            </tr>
+                            <tr>
+                                <td><label>Pressure</label></td>
+                                <td><div id="pressure"></div></td>
+                            </tr>
+                            <tr>
+                                <td><label>Wind Speed</label></td>
+                                <td><div id="wind_speed"></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
+            <div id="map_canvas">map div</div>
+        </div>
+        <div id="content">
+            <div id="images"></div>
         </div>
     </body>
-</html>  
+</html>

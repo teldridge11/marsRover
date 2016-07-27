@@ -1,0 +1,72 @@
+html, body, h1 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html ,body {
+    font-family: sans-serif;
+    color: lightgray;
+    background-color: black;
+}
+
+#map_canvas {
+    height: 500px;
+    width: 100%;
+    float: left;
+}
+
+#input {
+    height: 410px;
+    width: 300px;
+    margin-left: 10px;
+    margin-top: 50px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+#images {
+    padding: 20px;
+    padding-top: 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#inputText {
+    padding: 20px;
+}
+
+#data {
+    display: none;
+}
+
+#topSection {
+    height: 500px;
+}
+
+td:first-child + td {
+    color: green;
+}
+
+#solSubmit {
+    background-color: #9f3c32;
+    height: 30px;
+    width: 100px;
+    border: 0;
+    border-radius: 4px;
+    color: white;
+}
+
+#solSubmit:hover {
+    cursor: pointer;
+}
+
+input[type='text'] {
+    height: 30px;
+    width: 200px;
+    border-radius: 4px;
+    border: 0;
+}
