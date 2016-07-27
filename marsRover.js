@@ -6,7 +6,7 @@ function marsRoverImages() {
     var sol = document.getElementById('solField').value;
     var req = new XMLHttpRequest();
     var payload = {sol: null, camera:null, image:null};
-    req.open("GET", "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=" + sol + "&api_key=NC0CdKejj0Ipny4wxRgZCrEeYZ4eBgRs5gvvfjZl", true);
+    req.open("GET", "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=" + sol + "&api_key=DEMO_KEY", true);
     req.addEventListener('load',function(){
       if(req.status >= 200 && req.status < 400){
           var response = JSON.parse(req.responseText);
@@ -29,7 +29,6 @@ function marsRoverImages() {
               document.getElementById("images").appendChild(br);
               document.getElementById("images").appendChild(br);
           }
-
       } else {
         console.log("Error in network request: " + request.statusText);
       }});
@@ -49,8 +48,8 @@ function marsRoverWeather() {
     req.addEventListener('load',function(){
       if(req.status >= 200 && req.status < 400){
           var response = JSON.parse(req.responseText);
-          document.getElementById('lowTemp').textContent = response.results[0].min_temp_fahrenheit + "°F";
-          document.getElementById('highTemp').textContent = response.results[0].max_temp_fahrenheit + "°F";
+          document.getElementById('lowTemp').textContent = response.results[0].min_temp_fahrenheit + "\u00B0F";
+          document.getElementById('highTemp').textContent = response.results[0].max_temp_fahrenheit + "\u00B0F";
           document.getElementById('humidity').textContent = response.results[0].abs_humidity;
           document.getElementById('pressure').textContent = response.results[0].pressure;
           document.getElementById('wind_speed').textContent = response.results[0].wind_speed;
