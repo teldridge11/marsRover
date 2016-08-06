@@ -6,7 +6,7 @@ function marsRoverImages() {
     var sol = document.getElementById('solField').value;
     var req = new XMLHttpRequest();
     var payload = {sol: null, camera:null, image:null};
-    req.open("GET", "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=" + sol + "&api_key=DEMO_KEY", true);
+    req.open("GET", "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=" + sol + "&api_key=NC0CdKejj0Ipny4wxRgZCrEeYZ4eBgRs5gvvfjZl", true);
     req.addEventListener('load',function(){
       if(req.status >= 200 && req.status < 400){
           var response = JSON.parse(req.responseText);
