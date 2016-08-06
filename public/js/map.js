@@ -146,37 +146,32 @@ function initialize() {
   });
 
   // start with the moon map type
-  map.setMapTypeId('mars_visible');
+  map.setMapTypeId('mars_elevation');
 
   // mark pin on map based on sol input
   document.getElementById('solSubmit').addEventListener('click', function(event) {
-  var sol = document.getElementById('solField').value;
-  var x = new XMLHttpRequest();
-  x.open("GET", "http://mars.jpl.nasa.gov/msl-raw-images/locations.xml", true);
-  x.onreadystatechange = function () {
-      if (x.readyState == 4 && x.status == 200) {
-          var doc = x.responseXML;
-          var total = doc.getElementsByTagName("startSol");
-          for (var i=0, max = total.length; i<max; i++) {
-              if(doc.getElementsByTagName("startSol")[i].childNodes[0].nodeValue.replace(/^0+/, '') == sol) {
-                  var lat = doc.getElementsByTagName("lat")[i].childNodes[0].nodeValue;
-                  var gLat = Math.round(1000*lat)/1000;
-                  var lng = doc.getElementsByTagName("lon")[i].childNodes[0].nodeValue;
-                  var gLng = Math.round(1000*lng)/1000;
-                  var latLng = {lat: gLat, lng: gLng};
-                  var marker = new google.maps.Marker({
-                      position: latLng,
-                      map: map,
-                      title: 'Mars Rover Location'
-                  });
-                  map.setZoom(8);
-                  map.panTo(marker.position);
-              }
-              i++;
-          }
-      }
-  };
-  x.send(null);
-  event.preventDefault();
+    var sol = document.getElementById('solField').value;
+    var request = new XMLHttpRequest();
+    request.open("GET", "js/marsRoverLocations.xml", false);
+    request.send();
+    var xml = request.responseXML;
+    var total = xml.getElementsByTagName("startSol");
+    for (var i=0, max = total.length; i<max; i++) {
+        if(xml.getElementsByTagName("startSol")[i].childNodes[0].nodeValue.replace(/^0+/, '') == sol) {
+            var lat = xml.getElementsByTagName("lat")[i].childNodes[0].nodeValue;
+            var gLat = Math.round(1000*lat)/1000;
+            var lng = xml.getElementsByTagName("lon")[i].childNodes[0].nodeValue;
+            var gLng = Math.round(1000*lng)/1000;
+            var latLng = {lat: gLat, lng: gLng};
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                title: 'Mars Rover Location'
+            });
+            map.setZoom(8);
+            map.panTo(marker.position);
+        }
+        i++;
+    }
   });
 }

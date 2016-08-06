@@ -1,4 +1,4 @@
-// Queries API for images and updates the UI
+// queries API for images and updates the UI
 document.addEventListener('DOMContentLoaded', marsRoverImages);
 function marsRoverImages() {
     document.getElementById('solSubmit').addEventListener('click', function(event) {
@@ -37,31 +37,7 @@ function marsRoverImages() {
     });
 }
 
-// Queries API for weather data and updates UI
-document.addEventListener('DOMContentLoaded', marsRoverWeather);
-function marsRoverWeather() {
-    document.getElementById('solSubmit').addEventListener('click', function(event) {
-    var sol = document.getElementById('solField').value;
-    var req = new XMLHttpRequest();
-    var payload = {sol:null, min_temp_fahrenheit:null, max_temp_fahrenheit:null, atmo_opacity:null};
-    req.open("GET", "http://marsweather.ingenology.com/v1/archive/?sol=" + sol, true);
-    req.addEventListener('load',function(){
-      if(req.status >= 200 && req.status < 400){
-          var response = JSON.parse(req.responseText);
-          document.getElementById('lowTemp').textContent = response.results[0].min_temp_fahrenheit + "\u00B0F";
-          document.getElementById('highTemp').textContent = response.results[0].max_temp_fahrenheit + "\u00B0F";
-          document.getElementById('humidity').textContent = response.results[0].abs_humidity;
-          document.getElementById('pressure').textContent = response.results[0].pressure;
-          document.getElementById('wind_speed').textContent = response.results[0].wind_speed;
-      } else {
-        console.log("Error in network request: " + request.statusText);
-      }});
-    req.send(JSON.stringify(payload));
-        event.preventDefault();
-    });
-}
-
-// Sets the solar day range for input field
+// sets the solar day range for input field
 document.addEventListener('DOMContentLoaded', solRange);
 function solRange() {
     var req = new XMLHttpRequest();
@@ -76,4 +52,34 @@ function solRange() {
       }});
     req.send(JSON.stringify(payload));
     event.preventDefault();
+}
+
+// updates UI with weather data
+function weatherData(response) {
+  if(response.results[0]){
+    document.getElementById('weather').textContent = response.results[0].atmo_opacity;
+    document.getElementById('lowTemp').textContent = response.results[0].min_temp_fahrenheit + "\u00B0F";
+    document.getElementById('highTemp').textContent = response.results[0].max_temp_fahrenheit + "\u00B0F";
+    document.getElementById('humidity').textContent = response.results[0].abs_humidity;
+    document.getElementById('pressure').textContent = response.results[0].pressure;
+    document.getElementById('wind_speed').textContent = response.results[0].wind_speed;
+  } else {
+    document.getElementById('weather').textContent = "";
+    document.getElementById('lowTemp').textContent = "";
+    document.getElementById('highTemp').textContent = "";
+    document.getElementById('humidity').textContent = "";
+    document.getElementById('pressure').textContent = "";
+    document.getElementById('wind_speed').textContent = "";
+  }
+}
+
+// queries API for weather data
+document.addEventListener('DOMContentLoaded', getSol);
+function getSol() {
+  document.getElementById('solSubmit').addEventListener('click', function(event) {
+    var sol = document.getElementById('solField').value;
+    var script = document.createElement('script');
+    script.src = "http://marsweather.ingenology.com/v1/archive/?sol=" + sol + "&format=jsonp&callback=weatherData";
+    document.getElementsByTagName('head')[0].appendChild(script);
+  });
 }
